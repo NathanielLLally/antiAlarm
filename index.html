@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+        }
+        #status {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Alarm System</h1>
+        <div id="status">Disarmed</div>
+        <div class="row">
+            <div class="column">
+                <button id="armButton">Arm</button>
+            </div>
+            <div class="column">
+                <button id="disarmButton">Disarm</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <label for="pinInput">Enter PIN</label>
+                <input type="password" id="pinInput" placeholder="PIN">
+            </div>
+        </div>
+    </div>
+    <script>
+        const statusDiv = document.getElementById('status');
+        const armButton = document.getElementById('armButton');
+        const disarmButton = document.getElementById('disarmButton');
+        const pinInput = document.getElementById('pinInput');
+
+        let armed = false;
+        const correctPin = "1234";
+
+        function updateStatus() {
+            if (armed) {
+                statusDiv.textContent = "Armed";
+                statusDiv.style.color = "red";
+            } else {
+                statusDiv.textContent = "Disarmed";
+                statusDiv.style.color = "green";
+            }
+        }
+
+        armButton.addEventListener('click', () => {
+            const pin = pinInput.value;
+            if (pin === correctPin) {
+                armed = true;
+                updateStatus();
+                alert("Alarm Armed");
+            } else {
+                alert("Incorrect PIN");
+            }
+            pinInput.value = "";
+        });
+
+        disarmButton.addEventListener('click', () => {
+            const pin = pinInput.value;
+            if (pin === correctPin) {
+                armed = false;
+                updateStatus();
+                alert("Alarm Disarmed");
+            } else {
+                alert("Incorrect PIN");
+            }
+            pinInput.value = "";
+        });
+
+        updateStatus();
+    </script>
+</body>
+</html>
